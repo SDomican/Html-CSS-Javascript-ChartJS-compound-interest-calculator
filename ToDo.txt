@@ -7,4 +7,4 @@ Create charts
 Add charts
 Research JQuery
 Add JQuery to site
-Set up a proper GitHub workflow.
+DONE - Set up a proper GitHub workflow.
