@@ -13,16 +13,21 @@ function calculateSavings(savings){
     return savingsData;
 }
 
-let testMap = calculateSavings(1600);
+let testMap = new Map();
+testMap = calculateSavings(1600);
 let savingsArray = [];
+let yearArray = [];
 
-for(var i = 0, keys = Object.keys(testMap), ii = keys.length; i < ii; i++){
-    savingsArray.push(keys[i]);
+//Adds values from map to an array.
+for(let value of testMap.keys()){
+    savingsArray.push(value);
 }
 
-for(let i = 0; i < savingsArray.length;i++){
-    console.log(savingsArray[i]);
+//add keys from map(years) to an array
+for(let key of testMap.keys()){
+    yearArray.push(key);
 }
+
 
 //var stars = [135850, 52122, 148825, 16939, 9763];
 //var frameworks = ['React', 'Angular', 'Vue', 'Hyperapp', 'Omi'];
@@ -31,12 +36,18 @@ var myChart = new Chart(ctx, {
     //type: 'bar',
     type: "line",
     data: {
-       labels: frameworks,
+       labels: yearArray,
+        //labels: frameworks,
        datasets: [{
 
-           label: 'Popular JavaScript Frameworks',
+           label: 'Savings',
            data: savingsArray
         //    data: stars
            }]
     },
    });
+
+   console.log(savingsArray);
+   console.log(yearArray);
+
+   //Testing Git Push....
