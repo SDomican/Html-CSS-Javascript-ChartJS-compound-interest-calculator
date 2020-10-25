@@ -2,14 +2,15 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+
 .chartNav{
   position: fixed;
   background-color: aqua;
   height: 100%;
-  width: 400px;
+  width: 200px;
   overflow-x: hidden;
   top: 0;
-  left: 0;
+  left: 160px;
   padding-top: 20px;
 }
 
