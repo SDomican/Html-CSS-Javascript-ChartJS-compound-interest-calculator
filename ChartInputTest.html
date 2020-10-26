@@ -16,7 +16,20 @@
     <a href="#contact">Contact</a>
 </div>
 <div class = "chartNav">
-    <button class="btn btn-success" onclick = "updateChart(2000)">Update</button>
+    
+    <div class = "chartInputs">
+        <!--<button class="btn-update" onclick = "updateChart()">Update</button>-->
+
+        <!--<form onsubmit = "updateChart()">-->
+        <form>
+            <label for="enterNumber">Enter number:</label><br>
+            <input type="text" id="numberTest" name="numberTest"><br>
+            <!--<input type="submit">-->
+        </form>
+    </div>
+    <div class = "center">
+        <button class="btn-update" onclick = "updateChart()">Update</button>
+    </div>
 </div>
 
 <div class="chart">

@@ -1,12 +1,13 @@
 var ctx = document.getElementById('myChart');
 
 function calculateSavings(savings) {
-
+    console.log("calculateSavings savings value: " + savings);
     let savingsData = new Map();
     let totalSavings = 0;
     for (let i = 0; i < 10; i++) {
         let year = 2020 + i;
-        totalSavings += savings;
+        totalSavings += parseInt(savings);
+        console.log("total Savings: " + totalSavings);
         savingsData.set(year, totalSavings);
     }
     //console.log("savingsData: " + JSON.stringify(savingsData));
@@ -14,7 +15,7 @@ function calculateSavings(savings) {
 }
 
 let testMap = new Map();
-testMap = calculateSavings(1600);
+testMap = calculateSavings(1800);
 let savingsArray = [];
 let yearArray = [];
 
@@ -53,14 +54,9 @@ var myChart = new Chart(ctx, {
 });
 
 
-//function for updating Chart.JS
-// function updateChart(){
-//     myChart.data.datasets[0].data = [100, 200, 300, 400,500,600,700,800,900,1000]
-//     myChart.update(); 
-// }
-
-
-function updateChart(savings) {
+function updateChart() {
+    let savings = document.getElementById("numberTest").value;
+    console.log("Savings update: " + savings);
 
     let newMap = new Map();
     newMap = calculateSavings(savings);
@@ -78,8 +74,10 @@ function updateChart(savings) {
     }
     // console.log("Year Array: " + yearArray);
     // console.log(savings);
-    // console.log(newSavingsArray);
-    // console.log(myChart.data.datasets[0].data);
+    console.log("newSavingsArray: " + newSavingsArray);
+    
     myChart.data.datasets[0].data = newSavingsArray;
+    console.log("dataset[0]" + myChart.data.datasets[0].data);
     myChart.update();
+    console.log("passed chart update");
 }

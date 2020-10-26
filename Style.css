@@ -2,6 +2,26 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+div{
+  outline-style: solid;
+  outline-color: red;
+}
+
+label{
+  color: #818181;
+  margin: 5%;
+}
+
+input{
+  color: #818181;
+  margin: 5%;
+}
+
+.chartInputs{
+  margin: 5%;
+  outline-style: solid;
+  outline-color: red;
+}
 
 .chartNav{
   position: fixed;
@@ -14,6 +34,19 @@ body {
   padding-top: 20px;
 }
 
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn-update{
+  background-color: #4CAF50;
+  font-size: 16px;
+}
 
 .sidenav {
   height: 100%;
@@ -22,7 +55,8 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: yellow;
+  /*background-color: #111;*/
   overflow-x: hidden;
   padding-top: 20px;
 }
