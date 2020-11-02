@@ -1,11 +1,11 @@
 To do:
 
-Define website features
+DONE - Define website features
 DONE - Create HTML skeleton
 Add buttons to HTML skeleton
 Create charts
 Add charts
 Research JQuery
 Add JQuery to site
-DONE - Set up a proper GitHub workflow.
+DONE - Set up a GitHub workflow.
 Prettyfy the site
