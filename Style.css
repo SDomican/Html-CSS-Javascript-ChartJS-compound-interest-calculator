@@ -43,6 +43,16 @@ input{
   transform: translate(-50%, -50%);
 }
 
+.updatebtnNav{
+  margin: 0;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
 .btn-update{
   background-color: #4CAF50;
   font-size: 16px;
