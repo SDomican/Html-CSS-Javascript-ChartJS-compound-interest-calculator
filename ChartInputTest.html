@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +23,26 @@
 
         <!--<form onsubmit = "updateChart()">-->
         <form>
-            <label for="enterNumber">Enter number:</label><br>
+            <label for="enterNumber">Monthly savings:</label><br>
             <input type="text" id="numberTest" name="numberTest"><br>
-            <!--<input type="submit">-->
+            
+            <!--Takes the interest rate percentage-->
+            <label for="interestRate">Interest Rate:</label><br>
+            <input type="text" id="intRate" name="intRate"><br>
+
+            <label for="expenses">Monthly Expenses:</label><br>
+            <input type="text" id="expenses" name="expenses"><br>
+
+            <label for="increaseSavings">Increase yearly savings by X%:</label><br>
+            <input type="text" id="increaseSavings" name="increaseSavings"><br>
+
+            <label for="increaseExpenses">Increase yearly expenses by X%</label><br>
+            <input type="text" id="increaseExpenses" name="increaseExpenses"><br>
         </form>
     </div>
-    <div class = "center">
+
+
+    <div class = "updatebtnNav">
         <button class="btn-update" onclick = "updateChart()">Update</button>
     </div>
 </div>
