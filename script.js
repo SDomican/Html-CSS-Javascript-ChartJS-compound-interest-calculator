@@ -1,37 +1,38 @@
 var ctx = document.getElementById('myChart');
 
-function calculateSavings(savings) {
-    console.log("calculateSavings savings value: " + savings);
+function calculateSavings(savings, years) {
+    //console.log("calculateSavings savings value: " + savings);
+    //console.log("Years: " + years);
     let savingsData = new Map();
     let totalSavings = 0;
-    for (let i = 0; i < 10; i++) {
-        let year = 2020 + i;
+    for (let i = 1; i <= (years + 1); i++) {
+        let currentYear = 2020 + i;
         totalSavings += (parseInt(savings) * 12);
-        console.log("total Savings: " + totalSavings);
-        savingsData.set(year, totalSavings);
+        console.log("Savings for year " + currentYear + ": " + totalSavings);
+        savingsData.set(currentYear, totalSavings);
     }
-    //console.log("savingsData: " + JSON.stringify(savingsData));
+  
     return savingsData;
 }
+
+
 
 let testMap = new Map();
 testMap = calculateSavings(0);
 let savingsArray = [];
 let yearArray = [];
 
+
 //Adds values from map to an array.
 for (let value of testMap.values()) {
-    //console.log("Pushing savings of " + value);
     savingsArray.push(value);
 }
 
 //add keys from map(years) to an array
 for (let key of testMap.keys()) {
-    //console.log("Pushing year of " + key);
     yearArray.push(key);
 }
 
-console.log("Initial year array: " + yearArray);
 
 
 var myChart = new Chart(ctx, {
@@ -41,7 +42,7 @@ var myChart = new Chart(ctx, {
         labels: yearArray,
         datasets: [{
             label: 'Base Savings',
-            data: savingsArray
+            data: savingsArray        
         },{
             label: 'Savings plus interest',
             //backgroundColor: "rgb(0,200,0)",
@@ -73,11 +74,28 @@ var myChart = new Chart(ctx, {
 
 
 function updateChart() {
+    
+    var years = 10;
+
+    if(document.getElementById("years") !== null){
+        var years = parseInt(document.getElementById("years").value);
+    }
+    
     let savings = parseInt(document.getElementById("numberTest").value);
-    console.log("Savings update: " + savings);
 
     let newMap = new Map();
-    newMap = calculateSavings(savings);
+    
+    // if(document.getElementById("increaseSavings") == null){
+    //     console.log("PING 1");
+    //     newMap = calculateSavings(savings, years);
+    // } else{
+    //     console.log("PING 2");
+    //     var growth = parseInt(document.getElementById("increaseSavings").value);
+    //     calculateSavingsWithGrowth(savings, years, growth);
+    // }
+    
+    newMap = calculateSavings(savings, years);
+
     let newSavingsArray = [];
     let yearArray = [];
 
@@ -92,10 +110,13 @@ function updateChart() {
     }
 
     myChart.data.datasets[0].data = newSavingsArray;
+    myChart.config.data.labels = yearArray;
 
-    //update data in chart that represents the savings plus interest
+
+
+    // //update data in chart that represents the savings plus interest
     let interest = parseInt(document.getElementById("intRate").value);
-    let newInterestMap = calculateCompoundSavings(newSavingsArray, interest);
+    let newInterestMap = calculateCompoundSavings(newSavingsArray, interest, years);
     
     let newInterestArray = [];
 
@@ -105,11 +126,12 @@ function updateChart() {
     }
     
     myChart.data.datasets[1].data = newInterestArray;
+    
 
 
     //Update chart with the user's monthly expenses
     let expenses = parseInt(document.getElementById("expenses").value)
-    let expensesMap = calculateMonthlyExpenses(expenses);
+    let expensesMap = calculateMonthlyExpenses(expenses, years);
 
     let ExpensesArray = [];
 
@@ -119,10 +141,13 @@ function updateChart() {
     }
     myChart.data.datasets[2].data = ExpensesArray;
 
+
     
-    //update chart with yearly interest
+
+    
+    // //update chart with yearly interest
     let yearlyInterestArray = [];
-    let yearlyInterestMap = calculateInterestEarnings(newSavingsArray, newInterestArray);
+    let yearlyInterestMap = calculateInterestEarnings(newSavingsArray, newInterestArray, years);
 
     for (let value of yearlyInterestMap.values()) {
         yearlyInterestArray.push(value);
@@ -131,12 +156,19 @@ function updateChart() {
     myChart.data.datasets[3].data = yearlyInterestArray;
 
 
-    //update passive earnings chart
+
+    // //update passive earnings chart
     let passiveIncomeArray = [];
-    let passiveIncomeMap = createPassiveIncomeMap(newInterestArray, interest);
+    let newYearArray = [];
+    let passiveIncomeMap = createPassiveIncomeMap(newInterestArray, interest,years);
 
     for (let value of passiveIncomeMap.values()) {
         passiveIncomeArray.push(value);
+    }
+
+    //add keys from map(years) to an array
+    for (let key of passiveIncomeMap.keys()) {
+        newYearArray.push(key);   
     }
 
     myChart.data.datasets[4].data = passiveIncomeArray;
@@ -149,16 +181,16 @@ function updateChart() {
 
 
 
-function calculateCompoundSavings(savingsArray, interest){
-
+function calculateCompoundSavings(savingsArray, interest, years){
     let interestAsADecimal = parseInt(interest)/100;
     let savingsData = new Map();
     let totalSavings = 0;
     //loop through savingsArray
 
     //take the ith value of the array and add the amount to totalSavings
-    for (let i =0;i<10;i++){
-        let year = 2020 + i;
+    for (let i = 0; i <= years; i++){
+        
+        let currentYear = 2020 + i;
         totalSavings += parseInt(savingsArray[0]);
 
          //add interest to the totalSavings
@@ -166,8 +198,9 @@ function calculateCompoundSavings(savingsArray, interest){
         totalSavings += interestToAdd;
         
         //push the values to the map
-        savingsData.set(year, Math.floor(totalSavings));
+        savingsData.set(currentYear, Math.floor(totalSavings));
     }
+
 
     //return the map
     return savingsData;
@@ -177,10 +210,10 @@ function calculateCompoundSavings(savingsArray, interest){
 
 
 //Adds the user's monthly expenses as a vertical line to the chart
-function calculateMonthlyExpenses(expenses){
+function calculateMonthlyExpenses(expenses, years){
     let monthlyExpenses = new Map();
     
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i <= years; i++) {
         let year = 2020 + i;
         monthlyExpenses.set(year, parseInt(expenses));
     }
@@ -188,12 +221,14 @@ function calculateMonthlyExpenses(expenses){
     return monthlyExpenses;
 }
 
+
+
 //returns map of the interest earned for each year
-function calculateInterestEarnings(baseSavingsArray, incomeAndInterestArray){
+function calculateInterestEarnings(baseSavingsArray, incomeAndInterestArray, years){
     
     let interestMap = new Map();
 
-    for(let i = 0; i<10;i++){
+    for(let i = 0; i<= years; i++){
         let year = 2020 + i;
 
         let newInterestValue = (parseInt(incomeAndInterestArray[i]) - parseInt(baseSavingsArray[i]));
@@ -205,14 +240,30 @@ function calculateInterestEarnings(baseSavingsArray, incomeAndInterestArray){
 
 
 //creates a map of the passive income
-function createPassiveIncomeMap(savingsPlusInterestArray, interestRate){
+function createPassiveIncomeMap(savingsPlusInterestArray, interestRate, years){
     let interestAsADecimal = parseInt(interestRate)/100;
     let passiveIncomeMap = new Map();
 
-    for (let i = 0; i<10;i++){
+    for (let i = 0; i <= years;i++){
         let year = 2020 + i;
         passiveIncomeMap.set(year, Math.round((savingsPlusInterestArray[i] * interestAsADecimal)));
     }
 
     return passiveIncomeMap;
+}
+
+function calculateSavingsWithGrowth(savings, years, savingsGrowthRate){
+    let savingsData = new Map();
+    let totalSavings = 0;
+    let yearlySavings = savings;
+    let growthRateAsDecimal = parseInt(savingsGrowthRate)/100;
+    for (let i = 1; i <= (years + 1); i++) {
+        let currentYear = 2020 + i;
+        totalSavings += (parseInt(yearlySavings) * 12);
+        console.log("Savings for year " + currentYear + ": " + totalSavings);
+        savingsData.set(currentYear, totalSavings);
+        yearlySavings *= (100 + growthRateAsDecimal);
+    }
+  
+    return savingsData;
 }
