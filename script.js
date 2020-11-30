@@ -176,9 +176,34 @@ function updateChart() {
     //updates the chart
     myChart.update();
     
+
+    //Update the finance text
+    
+    document.getElementById("financeParagraph").innerHTML = "With monthly expenses of " + expenses + ", monthly savings of " + savings + " ,and a post-inflation return on your investments of " + interest + " percent, you will be financially independent in  " + calculateYearsToIndependence() + " years!";
    
 }
 
+//FUNCTION NEEDS FINISHING!
+function calculateYearsToIndependence(savingsPlusInterestArray, interestRate){
+
+    let passiveMap = createPassiveIncomeMap(monthlyExpenses, savingsPlusInterestArray, interestRate, 100);
+    let counter = 0;
+
+    //If interest = 0 then return that they will never be independent
+    if(interestRate == 0){
+        return 0;
+    }
+
+    //check passive income for the year. If passive income greater than yearly expenses, return count of the year
+    for(let value of passiveMap){
+        counter++;
+        if (value >= monthlyExpenses){
+            return counter;
+        }
+    }
+
+    return 0;
+}
 
 
 function calculateCompoundSavings(savingsArray, interest, years){
