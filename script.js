@@ -8,7 +8,7 @@ function calculateSavings(savings, years) {
     for (let i = 1; i <= (years + 1); i++) {
         let currentYear = 2020 + i;
         totalSavings += (parseInt(savings) * 12);
-        console.log("Savings for year " + currentYear + ": " + totalSavings);
+        //console.log("Savings for year " + currentYear + ": " + totalSavings);
         savingsData.set(currentYear, totalSavings);
     }
   
@@ -85,15 +85,6 @@ function updateChart() {
 
     let newMap = new Map();
     
-    // if(document.getElementById("increaseSavings") == null){
-    //     console.log("PING 1");
-    //     newMap = calculateSavings(savings, years);
-    // } else{
-    //     console.log("PING 2");
-    //     var growth = parseInt(document.getElementById("increaseSavings").value);
-    //     calculateSavingsWithGrowth(savings, years, growth);
-    // }
-    
     newMap = calculateSavings(savings, years);
 
     let newSavingsArray = [];
@@ -160,7 +151,8 @@ function updateChart() {
     // //update passive earnings chart
     let passiveIncomeArray = [];
     let newYearArray = [];
-    let passiveIncomeMap = createPassiveIncomeMap(newInterestArray, interest,years);
+    //let passiveIncomeMap = createPassiveIncomeMap(newInterestArray, interest, years); - old v1 working version
+    let passiveIncomeMap = createPassiveIncomeMap(newInterestArray, savingsArray, years);
 
     for (let value of passiveIncomeMap.values()) {
         passiveIncomeArray.push(value);
@@ -176,9 +168,40 @@ function updateChart() {
     //updates the chart
     myChart.update();
     
+
+    //Update the finance text
+    
+    /*document.getElementById("financeParagraph").innerHTML = "With monthly expenses of " + expenses + ", monthly savings of " + savings + " ,and a post-inflation return on your investments of " + interest + " percent, you will be financially independent in  " + calculateYearsToIndependence(passiveIncomeArray,interest) + " years!";*/
+
+
+    document.getElementById("financeParagraph").innerHTML = "Function calculateYearsToIndependence returning value of " + calculateYearsToIndependence(expenses, passiveIncomeArray, interest);
    
 }
 
+//FUNCTION NEEDS FINISHING!
+function calculateYearsToIndependence(monthlyExpenses, passiveIncomeArray, interestRate){
+
+    //let passiveMap = createPassiveIncomeMap(interestArray, interestRate, 100);
+    let counter = 0;
+    let yearlyExpenses = monthlyExpenses * 12;
+
+    //If interest = 0 then return that they will never be independent
+    if(interestRate == 0){
+        console.log("Ping1: interest = 0");
+        return 0;
+    }
+
+    //check passive income for the year. If passive income greater than yearly expenses, return count of the year
+    for(let value of passiveIncomeArray){
+        counter++;
+        if (value >= yearlyExpenses){
+            console.log("Ping 2: checking passive income for year " + counter + " and returning value of " + value + "versus yearly expense of " + yearlyExpenses);
+            return counter;
+        }
+    }
+
+    return 0;
+}
 
 
 function calculateCompoundSavings(savingsArray, interest, years){
@@ -233,23 +256,44 @@ function calculateInterestEarnings(baseSavingsArray, incomeAndInterestArray, yea
 
         let newInterestValue = (parseInt(incomeAndInterestArray[i]) - parseInt(baseSavingsArray[i]));
         interestMap.set(year, newInterestValue);
-        console.log("New interest value: " + newInterestValue)
+        //console.log("New interest value: " + newInterestValue)
     }
     return interestMap;
 }
 
-
+//MAY NEED FIXING
 //creates a map of the passive income
-function createPassiveIncomeMap(savingsPlusInterestArray, interestRate, years){
+/*function createPassiveIncomeMap(savingsPlusInterestArray, interestRate, years){
     let interestAsADecimal = parseInt(interestRate)/100;
     let passiveIncomeMap = new Map();
 
-    for (let i = 0; i <= years;i++){
+    for (let i = 0; i <= years; i++){
         let year = 2020 + i;
+        console.log("Loop no. " + i);
+        console.log("createPassiveIncomeMap: savingsPlusInterestArray[i] is " + savingsPlusInterestArray[i] + " for year " + year);
         passiveIncomeMap.set(year, Math.round((savingsPlusInterestArray[i] * interestAsADecimal)));
     }
 
     return passiveIncomeMap;
+}*/
+
+function createPassiveIncomeMap(savingsPlusInterestArray, savingsArray, years){
+
+    //create passiveIncomeMap
+    let passiveIncomeMap = new Map();
+
+    //Loop through the savingsPlusInterestArray subtract the concurrent savingsArray value from it. Add this value to the passiveIncomeMap
+
+    for(let i = 0; i < years; i++){
+        let passiveIncome = savingsPlusInterestArray[i] - savingsArray[i];
+        let year = 2020 + i;
+
+        passiveIncomeMap.set(year, passiveIncome);
+        console.log("createPassiveIncomeMap: savingsPlusInterestArray = " + savingsPlusInterestArray[i] + ".savingsArray = " + savingsArray[i] + ".passiveIncome for year "+ year + "is " + passiveIncome);
+    }
+
+    return passiveIncomeMap;
+
 }
 
 function calculateSavingsWithGrowth(savings, years, savingsGrowthRate){
@@ -260,7 +304,7 @@ function calculateSavingsWithGrowth(savings, years, savingsGrowthRate){
     for (let i = 1; i <= (years + 1); i++) {
         let currentYear = 2020 + i;
         totalSavings += (parseInt(yearlySavings) * 12);
-        console.log("Savings for year " + currentYear + ": " + totalSavings);
+        //console.log("Savings for year " + currentYear + ": " + totalSavings);
         savingsData.set(currentYear, totalSavings);
         yearlySavings *= (100 + growthRateAsDecimal);
     }
