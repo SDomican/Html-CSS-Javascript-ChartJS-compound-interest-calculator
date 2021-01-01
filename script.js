@@ -5,7 +5,7 @@ function calculateSavings(savings, years) {
     //console.log("Years: " + years);
     let savingsData = new Map();
     let totalSavings = 0;
-    for (let i = 1; i <= (years + 1); i++) {
+    for (let i = 1; i < (years + 1); i++) {
         let currentYear = 2020 + i;
         totalSavings += (parseInt(savings) * 12);
         //console.log("Savings for year " + currentYear + ": " + totalSavings);
@@ -77,10 +77,13 @@ function updateChart() {
     
     var years = 10;
 
-    if(document.getElementById("years") !== null){
-        var years = parseInt(document.getElementById("years").value);
+
+    if(document.getElementById("years").value.length !== 0 && Number.isInteger(parseInt(document.getElementById("years").value))){
+        console.log("ping");
+        years = parseInt(document.getElementById("years").value);
     }
     
+
     let savings = parseInt(document.getElementById("numberTest").value);
 
     let newMap = new Map();
@@ -134,8 +137,6 @@ function updateChart() {
 
 
     
-
-    
     // //update chart with yearly interest
     let yearlyInterestArray = [];
     let yearlyInterestMap = calculateInterestEarnings(newSavingsArray, newInterestArray, years);
@@ -171,14 +172,21 @@ function updateChart() {
 
     //Update the finance text
     
-    /*document.getElementById("financeParagraph").innerHTML = "With monthly expenses of " + expenses + ", monthly savings of " + savings + " ,and a post-inflation return on your investments of " + interest + " percent, you will be financially independent in  " + calculateYearsToIndependence(passiveIncomeArray,interest) + " years!";*/
+    if(calculateYearsToIndependence(expenses, passiveIncomeArray,interest) != 0){
+
+    document.getElementById("financeParagraph").innerHTML = "With monthly expenses of " + expenses + ", monthly savings of " + savings + ", and a post-inflation return on your investments of " + interest + " percent, you will be financially independent in  " + calculateYearsToIndependence(expenses, passiveIncomeArray,interest) + " years!";
+
+    }
+    else{
+        document.getElementById("financeParagraph").innerHTML = "With monthly expenses of " + expenses + ", monthly savings of " + savings + ", and a post-inflation return on your investments of " + interest + " percent, you will need to save more money or get a higher interest rate return on your investments to achieve your goal within " + years + " years."; 
+    }
 
 
-    document.getElementById("financeParagraph").innerHTML = "Function calculateYearsToIndependence returning value of " + calculateYearsToIndependence(expenses, passiveIncomeArray, interest);
+    /*document.getElementById("financeParagraph").innerHTML = "Function calculateYearsToIndependence returning value of " + calculateYearsToIndependence(expenses, passiveIncomeArray, interest);*/
+
    
 }
 
-//FUNCTION NEEDS FINISHING!
 function calculateYearsToIndependence(monthlyExpenses, passiveIncomeArray, interestRate){
 
     //let passiveMap = createPassiveIncomeMap(interestArray, interestRate, 100);
@@ -211,7 +219,7 @@ function calculateCompoundSavings(savingsArray, interest, years){
     //loop through savingsArray
 
     //take the ith value of the array and add the amount to totalSavings
-    for (let i = 0; i <= years; i++){
+    for (let i = 0; i < years; i++){
         
         let currentYear = 2020 + i;
         totalSavings += parseInt(savingsArray[0]);
@@ -236,7 +244,7 @@ function calculateCompoundSavings(savingsArray, interest, years){
 function calculateMonthlyExpenses(expenses, years){
     let monthlyExpenses = new Map();
     
-    for (let i = 0; i <= years; i++) {
+    for (let i = 0; i < years; i++) {
         let year = 2020 + i;
         monthlyExpenses.set(year, parseInt(expenses));
     }
@@ -251,7 +259,7 @@ function calculateInterestEarnings(baseSavingsArray, incomeAndInterestArray, yea
     
     let interestMap = new Map();
 
-    for(let i = 0; i<= years; i++){
+    for(let i = 0; i< years; i++){
         let year = 2020 + i;
 
         let newInterestValue = (parseInt(incomeAndInterestArray[i]) - parseInt(baseSavingsArray[i]));
@@ -283,7 +291,7 @@ function calculateInterestEarnings(baseSavingsArray, incomeAndInterestArray, yea
     let passiveIncomeMap = new Map();
     let interestAsADecimal = parseInt(interest)/100;
 
-    //Loop through the savingsPlusInterestArray subtract the concurrent savingsArray value from it. Add this value to the passiveIncomeMap
+   //Loop through the savingsPlusInterestArray subtract the concurrent savingsArray value from it. Add this value to the passiveIncomeMap
 
     for(let i = 1; i <= years; i++){
         //let passiveIncome = savingsPlusInterestArray[i] - savingsArray[i];
@@ -308,7 +316,7 @@ function createPassiveIncomeMap(monthlySavings, interestRate, years){
     let interestEarnings = 0;
 
 
-    for(let i = 0; i < years; i++){
+    for(let i = 0; i <= years; i++){
         let year = 2020 + i;
         
         totalSavings += yearlySavings;
@@ -330,7 +338,7 @@ function calculateSavingsWithGrowth(savings, years, savingsGrowthRate){
     let totalSavings = 0;
     let yearlySavings = savings;
     let growthRateAsDecimal = parseInt(savingsGrowthRate)/100;
-    for (let i = 1; i <= (years + 1); i++) {
+    for (let i = 1; i < (years + 1); i++) {
         let currentYear = 2020 + i;
         totalSavings += (parseInt(yearlySavings) * 12);
         //console.log("Savings for year " + currentYear + ": " + totalSavings);

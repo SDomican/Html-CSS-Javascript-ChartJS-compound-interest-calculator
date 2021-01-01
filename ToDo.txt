@@ -1,15 +1,14 @@
 To do:
 
 
-Add buttons to HTML skeleton
 Research JQuery
 Add JQuery to site
 Prettyfy the site
-Research how to draw and calculate intersection of expenses and passive income lines on chart.
-Create text representation of earnings per year.
 Round chart figures to 2 decimals.
-Default years is bugged
-ADD increase income yearly by x% option.
-ADD increase yearly expenses by x% option.
 calculateCompoundSavings may be bugged at array[0] instead of i
 BUG - Fix total interest values
+Check chart values
+Clean up code
+
+Bug list:
+
