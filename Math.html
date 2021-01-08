@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="Style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#hide").click(function(){
+        $("img").hide();
+      });
+      $("#show").click(function(){
+        $("img").show();
+      });
+    });
+    </script>
+</head>
+
+<body>
+
+  <div class="sidenav">
+    <a href="Main.html">Home</a>
+    <a href="About.html">About</a>
+    <a href="Calculator.html">Compound Interest Calculator</a>
+  </div>
+
+  <article class="main">
+    <header>
+      <h2>The simple math behind early retirement!</h2>
+    </header>
+    <p>Your savings rate decides how long you need to work for!</p>
+    <p>The larger proportion of your income you save, the faster you can reach FIRE! This is due to two effects. Firstly, the more you save the faster your investments will grow. Secondly, the less you spend the less investments you will need to cover your living expenses.</p>
+    <p>As a rough rule of thumb, every one euro expense per month requires 300 euros of investments to cover. So every euro matters!</p>
+    <p>Below you will find a chart with a rough guide as to how long FIRE will take depending on the proportion of salary to expenses saved. This is based on a number of assumptions listed in the list below the chart. For a more accurate calculation, please check out the FIRE calculator on this website!</p> 
+
+
+    <figure>
+      <img style="display: block; margin-left: auto;
+      margin-right: auto; width: 30%; height: 15%;" src="savingsrate.png" alt="Retirement Math">
+      <figcaption>Fig.1 - The simple math of saving!</figcaption>
+      <button class = "hideBtn" id="hide">Hide</button>
+      <button class = "showBtn" id="show">Show</button>
+    </figure>
+    <br> 
+  </article>
+
+
+
+  <footer class="main">
+    <h2>Assumptions of the shortcut</h2>
+    <ul style="list-style-type: circle;">
+      <li>You can earn 5% post-inflation returns on your investments during your saving years.</li>
+      <li>You live off a 4% safe withdrawal rate once financially independent.</li>
+      <li>As an extra safety margin, you only touch the gains made on investments.</li>
+    </ul>
+  </footer>
+
+
+
+</body>
+
+</html>

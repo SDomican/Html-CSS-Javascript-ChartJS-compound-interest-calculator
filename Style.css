@@ -1,37 +1,60 @@
 body {
   font-family: "Lato", sans-serif;
+  background-color: #ffffff;
+}
+
+p{
+  color: #164a41;
+}
+
+header{
+  color: #164a41;
 }
 
 div{
-  outline-style: solid;
-  outline-color: red;
+  /*outline-style: solid;
+  outline-color: red;*/
+}
+
+figcaption{
+  position: relative;
+  left: 30%;
+  margin: 1%;
+  color: #164a41;
 }
 
 label{
-  color: #818181;
+  color: #ffffff;
   margin: 5%;
+  margin-left: 10%;
+  font-weight:bold;
 }
 
 input{
-  color: #818181;
+  color: #164a41;
   margin: 5%;
+  margin-left: 10%;
+  width: 70%;
+  text-align: center;
+
 }
 
 .chartInputs{
   margin: 5%;
-  outline-style: solid;
-  outline-color: red;
+  /*outline-style: solid;
+  outline-color: red;*/
 }
 
 .chartNav{
   position: fixed;
-  background-color: aqua;
+  background-color: #4d774e;
   height: 100%;
   width: 200px;
   overflow-x: hidden;
   top: 0;
   left: 160px;
   padding-top: 20px;
+  
 }
 
 .center {
@@ -46,17 +69,67 @@ input{
 .updatebtnNav{
   margin: 0;
   position: absolute;
-  top: 80%;
+  top: 45%;
+
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
 }
 
-.btn-update{
-  background-color: #4CAF50;
+.fadeButtonClass{
+  background-color: #ffffff;
   font-size: 16px;
+  border-radius: 8px;
+  position: absolute;
+  left: 5%;
+  top: 43%;
 }
+
+.fadeButtonClass:hover{
+  background-color: #f1b24a;
+  color: #ffffff;
+}
+
+.btn-update{
+  background-color: #ffffff;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.btn-update:hover{
+  background-color: #f1b24a;
+  color: #ffffff;
+}
+
+.hideBtn{
+  background-color: #ffffff;
+  font-size: 16px;
+  border-radius: 8px;
+  position: absolute;
+  left: 49%;
+  width: 5%;
+}
+
+.hideBtn:hover{
+  background-color: #f1b24a;
+  color: #ffffff;
+}
+
+.showBtn{
+  background-color: #ffffff;
+  font-size: 16px;
+  border-radius: 8px;
+  position: absolute;
+  left: 56%;
+  width: 5%;
+}
+
+.showBtn:hover{
+  background-color: #f1b24a;
+  color: #ffffff;
+}
+
 
 .sidenav {
   height: 100%;
@@ -65,22 +138,23 @@ input{
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: yellow;
-  /*background-color: #111;*/
+  background-color:#164A41;
   overflow-x: hidden;
   padding-top: 20px;
+  font-weight: bold;
 }
 
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #ffffff;
   display: block;
 }
 
+
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #f1b24a;
 }
 
 .chart{
@@ -98,8 +172,8 @@ input{
 }
 
 .main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  font-size: 28px; /* Increased text to enable scrolling */
+  margin-left: 160px; 
+  font-size: 28px; 
   padding: 0px 10px;
 }
 
