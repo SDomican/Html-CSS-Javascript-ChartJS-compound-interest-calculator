@@ -1,3 +1,6 @@
+//JavaScript for the Chart.js functionality.
+
+
 var ctx = document.getElementById('myChart');
 
 function calculateSavings(savings, years) {
@@ -70,6 +73,7 @@ var myChart = new Chart(ctx, {
 });
 
 
+//Updates the chart with the data the user enters in the forms.
 function updateChart() {
     
     var years = 10;
@@ -179,9 +183,9 @@ function updateChart() {
    
 }
 
+//Calculates years to financial independence.
 function calculateYearsToIndependence(monthlyExpenses, passiveIncomeArray, interestRate){
 
-    //let passiveMap = createPassiveIncomeMap(interestArray, interestRate, 100);
     let counter = 0;
     let yearlyExpenses = monthlyExpenses * 12;
 
